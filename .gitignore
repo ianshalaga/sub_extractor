@@ -1,6 +1,13 @@
 # Prerequisites
 *.d
 
+# Videos
+*.mp4
+*.avi
+
+# Imagenes
+resultado*.png
+
 # Compiled Object files
 *.slo
 *.lo
