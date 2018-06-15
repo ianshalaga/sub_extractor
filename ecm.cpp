@@ -21,7 +21,7 @@ float ecm(const Mat &imagen1,const Mat &imagen2) {
 	
 	for(int i=0;i<filas;i++) { 
 		for(int j=0;j<columnas;j++) { 
-			suma += pow(imagen1.at<uchar>(i,j)-imagen2_redim.at<uchar>(i,j),2);
+			suma += pow((imagen1.at<double>(i,j)-imagen2_redim.at<double>(i,j)),2);
 		}
 	}
 	

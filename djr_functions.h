@@ -67,4 +67,10 @@ cv::Mat promedio_intensidad_h(const cv::Mat &imagen);
 // Promedios verticales de intensidad
 cv::Mat promedio_intensidad_v(const cv::Mat &imagen);
 
+// Coeficientes de Hu para comparar el grado de parecido de dos imagenes
+cv::Mat coeficientes_hu(cv::Mat imagen);
+
+// Coeficiente de correlacion entre dos imagenes
+float correlacion(const cv::Mat &imagen1,const cv::Mat &imagen2);
+
 #endif

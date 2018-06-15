@@ -101,18 +101,18 @@ bool detectar_sub(const Mat &fotograma,vector<Mat> &resultados) {
 	}
 	
 	/*Muestra los resultados parciales*/
-//	fotograma: fotograma de trabajo.
-//	inferior: cuarto inferior del fotograma de trabajo.
-//	inferiorV: canal V de la parte inferior.
-//	inferiorV_gauss: canal V afectado por desenfoque gaussiano.
-//	filtradaV: bordes de la parte inferior.
-//	filtradaV_u: bordes binarizados de la parte inferior.
-//	cierre: rellenado de bordes.
-//	cierre_med: reduccion de ruido mediante mediana
-//	apertura1: acondicionamiento final para la deteccion de lineas horizontales.
-//	apertura2: acondicionamiento final para la deteccion de lineas verticales.
-//	lineas_sub: lineas sobre la parte inferior en escala de grises.
-//	inferior_roi: subtitulo encuadrado.
+//	[0]  fotograma: fotograma de trabajo.
+//	[1]  inferior: cuarto inferior del fotograma de trabajo.
+//	[2]  inferiorV: canal V de la parte inferior.
+//	[3]  inferiorV_gauss: canal V afectado por desenfoque gaussiano.
+//	[4]  filtradaV: bordes de la parte inferior.
+//	[5]  filtradaV_u: bordes binarizados de la parte inferior.
+//	[6]  cierre: rellenado de bordes.
+//	[7]  cierre_med: reduccion de ruido mediante mediana
+//	[8]  apertura1: acondicionamiento final para la deteccion de lineas horizontales.
+//	[9]  apertura2: acondicionamiento final para la deteccion de lineas verticales.
+//	[10] lineas_sub: lineas sobre la parte inferior en escala de grises.
+//	[11] inferior_roi: subtitulo encuadrado.
 	resultados = {fotograma,inferior,inferiorV,inferiorV_gauss,filtradaV,filtradaV_u,cierre,cierre_med,apertura1,apertura2,lineas_sub,inferior_roi};
 	Mat mosaico_res = concatenar_imagenes(resultados,true,true);
 	
