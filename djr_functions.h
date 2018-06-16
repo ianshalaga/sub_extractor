@@ -21,39 +21,13 @@ cv::Mat kernelPA0();
 // Elimina el marco de la imagen
 cv::Mat limpiar_contorno(cv::Mat imagen,int pixeles);
 
-// Kernel pasa-altos de 3x3 en cruz
-cv::Mat filtro_pa_cruz();
-
-// Kernel pasa-altos de 3x3 en equis
-cv::Mat filtro_pa_x();
-
-// Union de mascaras
-cv::Mat or_mascaras(const std::vector<cv::Mat> &mascaras);
-
-// Elemento estructurante horizontal
-cv::Mat elemento_estructurante_h();
-
-// Elemento estructurante vertical
-cv::Mat elemento_estructurante_v();
-
 // Dibuja lineas de Hough
 cv::Mat lineas_hough(const cv::Mat &bordes,const std::vector<cv::Vec2f> &rho_tita);
 
-cv::Mat acondicionar(const cv::Mat &mascara);
-
 void test(cv::VideoCapture video,int cantidad);
-
-// Promedio de los frames de un video
-cv::Mat fotograma_promedio(cv::VideoCapture video);
-
-// Error cuadratico medio
-float ecm(const cv::Mat &imagen1,const cv::Mat &imagen2);
 
 // Calcula el valor apropiado del umbral segun el tamaño del fotograma
 int inter_umbral(int columnas);
-
-// Kernel gaussiano cuadrado
-cv::Mat gauss_kernel(const int &dimension,const float &stdev);
 
 // Posiciones de inicio y fin de los blancos de un perfil vertical
 std::vector<int> blancos_h(cv::Mat perfil_v);
@@ -66,9 +40,6 @@ cv::Mat promedio_intensidad_h(const cv::Mat &imagen);
 
 // Promedios verticales de intensidad
 cv::Mat promedio_intensidad_v(const cv::Mat &imagen);
-
-// Coeficientes de Hu para comparar el grado de parecido de dos imagenes
-cv::Mat coeficientes_hu(cv::Mat imagen);
 
 // Coeficiente de correlacion entre dos imagenes
 cv::Mat correlacion(const cv::Mat &imagen1,const cv::Mat &imagen2);
