@@ -9,14 +9,26 @@ using namespace cv;
 using namespace std;
 using namespace pdi;
 
-float correlacion(const Mat &imagen1,const Mat &imagen2) {
+Mat correlacion(const Mat &imagen1,const Mat &imagen2) {
+	
+	vector<int> metodo = {CV_TM_SQDIFF,
+						  CV_TM_SQDIFF_NORMED,
+						  CV_TM_CCORR,
+						  CV_TM_CCORR_NORMED,
+						  CV_TM_CCOEFF,
+						  CV_TM_CCOEFF_NORMED};
+	
+	Mat corr(metodo.size(),1,CV_32F);
 	
 	Mat imagen1_f,imagen2_f;
 	imagen1.convertTo(imagen1_f,CV_32F);
 	imagen2.convertTo(imagen2_f,CV_32F);
 	
-	Mat corr;
-	matchTemplate(imagen1_f,imagen2_f,corr,TM_CCORR_NORMED);
+	for(int i=0;i<metodo.size();i++) { 
+		Mat corr_met;
+		matchTemplate(imagen1_f,imagen2_f,corr_met,metodo[i]);
+		corr.at<float>(i,0) = corr_met.at<float>(0,0);  // corr_met solo tiene un pixel
+	}
 	
-	return corr.at<float>(0,0);  // corr solo tiene un pixel
+	return corr;
 }

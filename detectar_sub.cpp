@@ -126,7 +126,7 @@ bool detectar_sub(const Mat &fotograma,vector<Mat> &resultados) {
 //	[11] inferior_roi: subtitulo encuadrado.
 //	[12] inferior_mask: mascara para extraer el texto del fotograma
 //	[13] inferior_tesseract: solo texto del fotograma
-	resultados = {fotograma,inferior,inferiorV,inferiorV_gauss,filtradaV,filtradaV_u,cierre,cierre_med,apertura1,apertura2,lineas_sub,inferior_roi,inferior_mask/*,inferior_tesseract*/};
+	resultados = {fotograma,inferior,inferiorV,inferiorV_gauss,filtradaV,filtradaV_u,cierre,cierre_med,apertura1,apertura2,lineas_sub,inferior_roi,inferior_mask,inferior_tesseract};
 	Mat mosaico_res = concatenar_imagenes(resultados,true,true);
 	
 //	namedWindow("Resultados",CV_WINDOW_KEEPRATIO);
