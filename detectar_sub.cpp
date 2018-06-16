@@ -57,6 +57,10 @@ bool detectar_sub(const Mat &fotograma,vector<Mat> &resultados) {
 	Mat ee_h1 = Mat::ones(1,columnas_inf/80,CV_8UC(1));
 	morphologyEx(cierre_med,apertura2,MORPH_OPEN,ee_h1,Point(-1,-1),1);
 	
+//	Mascara de texto
+	Mat inferior_mask;
+	bitwise_or(apertura1,apertura2,inferior_mask);
+	
 //	Dilatacion horizontal
 	Mat ee_h2 = Mat::ones(1,columnas_inf,CV_8UC(1));
 	dilate(apertura1,apertura1,ee_h2,Point(-1,-1),1);
@@ -77,6 +81,7 @@ bool detectar_sub(const Mat &fotograma,vector<Mat> &resultados) {
 //	Comprobacion de existencia de subtitulo
 	Rect roi;
 	Mat inferior_roi = inferior.clone();
+	Mat inferior_tesseract(inferior.size(),CV_8UC(1),Scalar(0));
 	
 	if (lineas.size() == 0)
 		subtitulos = false;
@@ -98,6 +103,12 @@ bool detectar_sub(const Mat &fotograma,vector<Mat> &resultados) {
 		
 		roi = Rect(limite_izquierdo,limite_superior,limite_derecho,limite_inferior);
 		rectangle(inferior_roi,roi,Scalar(0,255,0),3,8,0);
+		
+		//	Crea y aplica la mascara para usar con tesseract
+		Mat ee_rect_mask = getStructuringElement(MORPH_RECT,{columnas_inf/80,columnas_inf/80},Point(-1,-1));
+		dilate(inferior_mask,inferior_mask,ee_rect_mask,Point(-1,-1),1);
+		
+		inferior.copyTo(inferior_tesseract,inferior_mask);
 	}
 	
 	/*Muestra los resultados parciales*/
@@ -113,7 +124,9 @@ bool detectar_sub(const Mat &fotograma,vector<Mat> &resultados) {
 //	[9]  apertura2: acondicionamiento final para la deteccion de lineas verticales.
 //	[10] lineas_sub: lineas sobre la parte inferior en escala de grises.
 //	[11] inferior_roi: subtitulo encuadrado.
-	resultados = {fotograma,inferior,inferiorV,inferiorV_gauss,filtradaV,filtradaV_u,cierre,cierre_med,apertura1,apertura2,lineas_sub,inferior_roi};
+//	[12] inferior_mask: mascara para extraer el texto del fotograma
+//	[13] inferior_tesseract: solo texto del fotograma
+	resultados = {fotograma,inferior,inferiorV,inferiorV_gauss,filtradaV,filtradaV_u,cierre,cierre_med,apertura1,apertura2,lineas_sub,inferior_roi,inferior_mask/*,inferior_tesseract*/};
 	Mat mosaico_res = concatenar_imagenes(resultados,true,true);
 	
 //	namedWindow("Resultados",CV_WINDOW_KEEPRATIO);

@@ -28,24 +28,15 @@ int main(int argc, char** argv) {
 ////	
 	vector<Mat> resultados_ant;
 	vector<Mat> resultados_act;
-	vector<Mat> imagenes = {imagen1,imagen2,imagen3,imagen4,imagen5,imagen6,imagen7,imagen8,imagen9,imagen10,imagen11,imagen12,imagen13};
-//	vector<Mat> imagenes = {imagen6,imagen12,imagen14};
+//	vector<Mat> imagenes = {imagen1,imagen2,imagen3,imagen4,imagen5,imagen6,imagen7,imagen8,imagen9,imagen10,imagen11,imagen12,imagen13};
+	vector<Mat> imagenes = {imagen6,imagen12,imagen14,imagen6};
 
 	bool subtitulos = detectar_sub(imagenes[0],resultados_ant);
-	Mat coeff1 = coeficientes_hu(resultados_ant[7]);
-//	print(coeff1,cout); cout<<endl;
-	
 	
 	for(int i=1;i<imagenes.size();i++) { 
 		subtitulos = detectar_sub(imagenes[i],resultados_act);
 		if (subtitulos == true) {
-			Mat coeff2 = coeficientes_hu(resultados_act[7]);
-//			print(coeff2,cout); cout<<endl;
-//			cout<<ecm(coeff1,coeff2)<<endl;
-//			cout<<norm(coeff1-coeff2,NORM_L2)<<endl;
 			cout<<correlacion(resultados_ant[7],resultados_act[7])<<endl;
-			cout<<norm(resultados_ant[7]-resultados_act[7],NORM_L2)/resultados_act[7].size().area()<<endl;
-			cout<<1-norm(resultados_ant[7]-resultados_act[7],NORM_L2)/resultados_act[7].size().area()<<endl<<endl;
 			vector<Mat> comp = {resultados_ant[7],resultados_act[7]};
 			Mat mosaico_comp = concatenar_imagenes(comp,true,true);
 			namedWindow("Comparacion",CV_WINDOW_KEEPRATIO);
