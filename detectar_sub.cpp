@@ -58,8 +58,8 @@ bool detectar_sub(const Mat &fotograma,vector<Mat> &resultados) {
 	morphologyEx(cierre_med,apertura2,MORPH_OPEN,ee_h1,Point(-1,-1),1);
 	
 //	Mascara de texto
-	Mat inferior_mask;
-	bitwise_or(apertura1,apertura2,inferior_mask);
+//	Mat inferior_mask;
+//	bitwise_or(apertura1,apertura2,inferior_mask);
 	
 //	Dilatacion horizontal
 	Mat ee_h2 = Mat::ones(1,columnas_inf,CV_8UC(1));
@@ -81,6 +81,7 @@ bool detectar_sub(const Mat &fotograma,vector<Mat> &resultados) {
 //	Comprobacion de existencia de subtitulo
 	Rect roi;
 	Mat inferior_roi = inferior.clone();
+	Mat inferior_mask(inferior.size(),CV_8UC(1),Scalar(0));
 	Mat inferior_tesseract(inferior.size(),CV_8UC(1),Scalar(0));
 	
 	if (lineas.size() == 0)
@@ -105,6 +106,7 @@ bool detectar_sub(const Mat &fotograma,vector<Mat> &resultados) {
 		rectangle(inferior_roi,roi,Scalar(0,255,0),3,8,0);
 		
 		//	Crea y aplica la mascara para usar con tesseract
+		inferior_mask(roi).setTo(Scalar(255));
 		Mat ee_rect_mask = getStructuringElement(MORPH_RECT,{columnas_inf/80,columnas_inf/80},Point(-1,-1));
 		dilate(inferior_mask,inferior_mask,ee_rect_mask,Point(-1,-1),1);
 		

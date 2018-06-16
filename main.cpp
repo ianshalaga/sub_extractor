@@ -36,8 +36,8 @@ int main(int argc, char** argv) {
 	for(int i=1;i<imagenes.size();i++) { 
 		subtitulos = detectar_sub(imagenes[i],resultados_act);
 		if (subtitulos == true) {
-			print(correlacion(resultados_ant[7],resultados_act[7]),cout);
-			cout<<endl<<endl;
+			Mat corr = correlacion(resultados_ant[7],resultados_act[7]);
+			cout<<corr.at<float>(3,0)<<endl<<endl;
 			vector<Mat> comp = {resultados_ant[7],resultados_act[7]};
 			Mat mosaico_comp = concatenar_imagenes(comp,true,true);
 			namedWindow("Comparacion",CV_WINDOW_KEEPRATIO);
