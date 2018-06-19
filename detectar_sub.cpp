@@ -83,7 +83,7 @@ bool detectar_sub(const Mat &fotograma,vector<Mat> &resultados) {
 	Mat inferior_roi = inferior.clone();
 	Mat inferior_mask(inferior.size(),CV_8UC(1),Scalar(0));
 	Mat inferior_tesseract(inferior.size(),CV_8UC(1),Scalar(0));
-//	Mat inferior_lleno;
+	Mat inferior_lleno;
 	
 	if (lineas.size() == 0)
 		subtitulos = false;
@@ -113,9 +113,6 @@ bool detectar_sub(const Mat &fotograma,vector<Mat> &resultados) {
 		
 //		inferior.copyTo(inferior_tesseract,inferior_mask);
 		inferior_tesseract = inferior(roi);
-		
-//		Mat ee_rect = getStructuringElement(MORPH_RECT,{5,5},Point(-1,-1));
-//		morphologyEx(filtradaV_u,inferior_lleno,MORPH_CLOSE,ee_rect,Point(-1,-1),1);
 	}
 	
 	/*Muestra los resultados parciales*/
@@ -133,8 +130,7 @@ bool detectar_sub(const Mat &fotograma,vector<Mat> &resultados) {
 //	[11] inferior_roi: subtitulo encuadrado.
 //	[12] inferior_mask: mascara para extraer el texto del fotograma
 //	[13] inferior_tesseract: solo texto del fotograma
-//	[14] inferior_lleno: mascara de subtitulos rellena
-	resultados = {fotograma,inferior,inferiorV,inferiorV_gauss,filtradaV,filtradaV_u,cierre,cierre_med,apertura1,apertura2,lineas_sub,inferior_roi,inferior_mask,inferior_tesseract/*,inferior_lleno*/};
+	resultados = {fotograma,inferior,inferiorV,inferiorV_gauss,filtradaV,filtradaV_u,cierre,cierre_med,apertura1,apertura2,lineas_sub,inferior_roi,inferior_mask,inferior_tesseract};
 	vector<Mat> to_ocr = {inferior_tesseract};
 	Mat mosaico_res = concatenar_imagenes(to_ocr,true,true);
 	

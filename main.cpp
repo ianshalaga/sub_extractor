@@ -28,8 +28,8 @@ int main(int argc, char** argv) {
 ////	
 	vector<Mat> resultados_ant;
 	vector<Mat> resultados_act;
-	vector<Mat> imagenes = {imagen1,imagen2,imagen3,imagen4,imagen5,imagen6,imagen7,imagen8,imagen9,imagen10,imagen11,imagen12,imagen13};
-//	vector<Mat> imagenes = {imagen6,imagen12,imagen14,imagen6};
+//	vector<Mat> imagenes = {imagen1,imagen2,imagen3,imagen4,imagen5,imagen6,imagen7,imagen8,imagen9,imagen10,imagen11,imagen12,imagen13};
+	vector<Mat> imagenes = {imagen1,imagen5};
 
 	bool subtitulos = detectar_sub(imagenes[0],resultados_ant);
 	
@@ -38,14 +38,34 @@ int main(int argc, char** argv) {
 		if (subtitulos == true) {
 			Mat corr = correlacion(resultados_ant[7],resultados_act[7]);
 			cout<<corr.at<float>(3,0)<<endl<<endl;
-			vector<Mat> comp = {resultados_ant[7],resultados_act[7]};
-			Mat mosaico_comp = concatenar_imagenes(comp,true,true);
-			namedWindow("Comparacion",CV_WINDOW_KEEPRATIO);
-			imshow("Comparacion",mosaico_comp);
-			waitKey();
+			
+			ofstream subs_fotograma ("prueba_tesseract/subs_fotograma.txt");
+			
+			for(int j=0;j<resultados_act.size();j++) {
+				stringstream s1;
+				s1 << "prueba_tesseract/fotograma" << j << ".png";
+				imwrite(s1.str(),resultados_act[j]);
+				subs_fotograma<<s1.str()<<endl;
+//				stringstream s2;
+//				s << "tesseract " << s1 << "prueba_tesseract/";
+			}
+			
+			stringstream s2;
+			s2 << "tesseract " << "prueba_tesseract/subs_fotograma.txt" << " output" << i;
+			system(s2.str().c_str());
+			
+//			vector<Mat> comp = {resultados_ant[7],resultados_act[7]};
+//			Mat mosaico_comp = concatenar_imagenes(comp,true,true);
+//			namedWindow("Comparacion",CV_WINDOW_KEEPRATIO);
+//			imshow("Comparacion",mosaico_comp);
+//			waitKey();
 			resultados_ant = resultados_act;
 		}
 //		cout<<subtitulos<<"\n";
+	}
+	
+	for(int im=0;im<imagenes.size();im++) { 
+		
 	}
 	
 //	VideoCapture video("videos/snk.mp4");
