@@ -11,12 +11,12 @@ using namespace pdi;
 
 Mat correlacion(const Mat &imagen1,const Mat &imagen2) {
 	
-	vector<int> metodo = {CV_TM_SQDIFF,
-						  CV_TM_SQDIFF_NORMED,
-						  CV_TM_CCORR,
-						  CV_TM_CCORR_NORMED,
-						  CV_TM_CCOEFF,
-						  CV_TM_CCOEFF_NORMED};
+	vector<int> metodo = {/*CV_TM_SQDIFF,*/
+						  /*CV_TM_SQDIFF_NORMED,*/
+						  /*CV_TM_CCORR,*/
+						  CV_TM_CCORR_NORMED/*,*/
+						  /*CV_TM_CCOEFF,*/
+						  /*CV_TM_CCOEFF_NORMED*/};
 	
 	Mat corr(metodo.size(),1,CV_32F);
 	

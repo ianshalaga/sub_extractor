@@ -140,11 +140,11 @@ bool detectar_sub(const Mat &fotograma,vector<Mat> &resultados) {
 	/**/
 	
 	/*Guarda los resultados parciales*/
-	srand (time(NULL));
-	int v = rand() % 1000;
-	stringstream s;
-	s << "resultado" << v << ".png";
-	imwrite(s.str(),mosaico_res);
+//	srand (time(NULL));
+//	int v = rand() % 1000;
+//	stringstream s;
+//	s << "resultado" << v << ".png";
+//	imwrite(s.str(),mosaico_res);
 	/**/
 	
 	return subtitulos;
