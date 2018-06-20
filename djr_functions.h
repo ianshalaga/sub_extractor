@@ -47,4 +47,7 @@ cv::Mat correlacion(const cv::Mat &imagen1,const cv::Mat &imagen2);
 // Conversion del tiempo en ms al formato hh:mm:ss,sss del .srt
 std::string ms2hms(const double &tiempo_ms);
 
+// Convercion de imagen a texto (uso de tesseract)
+std::string img2str(std::string fotograma_inf);
+
 #endif

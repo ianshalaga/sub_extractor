@@ -67,7 +67,7 @@ int main(int argc, char** argv) {
 	
 //	Carga del video
 	stringstream s_video,s_v1;
-	s_video << "snk_Sony AVC-MVC_SNK_720[11]";
+	s_video << "snk_Sony AVC-MVC_SNK_720[7]";
 	s_v1 << "videos/" << s_video.str() << ".mp4";
 	VideoCapture video(s_v1.str());
 	
@@ -79,7 +79,6 @@ int main(int argc, char** argv) {
 	ofstream archivo_subs (s_a.str());
 	
 //	Primera fotograma
-//	video.set(CV_CAP_PROP_POS_FRAMES,0);
 	Mat frame_ant;
 	video >> frame_ant;
 	
@@ -101,15 +100,15 @@ int main(int argc, char** argv) {
 	}
 	
 //	Variables usadas
-//	Mat suma;
-//	int cont_iguales = 0;
+	Mat suma(frame_ant.size(),CV_64FC(3),Scalar(0.0,0.0,0.0));
+	suma = region_inferior(suma);
+	int cont_iguales = 0;
 	
 //	Resto de los fotogramas
 	for(int f=1;f<total_frames;f++) {
 		
 		cout<<"fotograma"<<f<<endl;
 		
-//		video.set(CV_CAP_PROP_POS_FRAMES,f);
 		Mat frame;
 		video >> frame;
 		
@@ -122,38 +121,50 @@ int main(int argc, char** argv) {
 		bool subs_act = detectar_sub(frame,resultados_act);
 		
 		if (subs_act == true) { // si hay subtitulos
-//			stringstream s_fotograma;
-//			s_fotograma << "fotograma" << f << ".jpg";
-//			imwrite(s_fotograma.str(),frame);
 			if (subs_ant == false) { // si hay subtitulos pero antes no habia
 				cont_srt++;
 				stringstream s_srt1;
 				s_srt1 << cont_srt << endl << tiempo_str << " --> ";
 				archivo_subs << s_srt1.str();
-//				suma = resultados_act[1].clone();
-//				cont_iguales++;
 				subs_ant = true;
 			} else { // si hay subtitulos y antes habia
 				Mat corr = correlacion(resultados_ant[7],resultados_act[7]);
 				if (corr.at<float>(0,0) < 0.9) { // si hay subtitulos y antes habia pero eran distintos
-//					Mat promedio = suma/cont_iguales;
-//					cont_iguales = 0;
+					Mat promedio = suma/cont_iguales;
+					promedio.convertTo(promedio,CV_8UC(3),255);
+					stringstream s_tess;
+					s_tess << "promedio" << cont_srt << ".jpg";
+					imwrite(s_tess.str(),promedio);
+					string texto = img2str(s_tess.str());
+					suma = 0.0;
+					cont_iguales = 0;
+					
 					cont_srt++;
 					stringstream s_srt2;
-					s_srt2 << tiempo_str << endl << cont_srt << endl << endl << cont_srt << endl << tiempo_str << " --> ";
+					s_srt2 << tiempo_str << endl << texto << endl << endl << cont_srt << endl << tiempo_str << " --> ";
 					archivo_subs << s_srt2.str();
 					subs_ant = true;
 				} else { // si hay subtitulos y antes habia y son los mismo
-//					suma += resultados_act[1];
-//					cont_iguales++;
+					Mat inferior_f;
+					resultados_act[1].convertTo(inferior_f,CV_64FC(3),1.0/255);
+					pow(inferior_f,2,inferior_f);
+					suma += inferior_f;
+					cont_iguales++;
 					subs_ant = true;
 				}
 			}
 		} else if (subs_ant == true) { // si no hay subtitulos pero antes habia
-//			Mat promedio = suma/cont_iguales;
-//			cont_iguales = 0;
+			Mat promedio = suma/cont_iguales;
+			promedio.convertTo(promedio,CV_8UC(3),255);
+			stringstream s_tess;
+			s_tess << "promedio" << cont_srt << ".jpg";
+			imwrite(s_tess.str(),promedio);
+			string texto = img2str(s_tess.str());
+			suma = 0.0;
+			cont_iguales = 0;
+			
 			stringstream s_srt3;
-			s_srt3 << tiempo_str << endl << cont_srt << endl << endl;
+			s_srt3 << tiempo_str << endl << texto << endl << endl;
 			archivo_subs << s_srt3.str();
 			subs_ant = false;
 		}
@@ -163,8 +174,17 @@ int main(int argc, char** argv) {
 	} // end for que recorre los fotogramas
 	
 	if (subs_ant == true) {
+		Mat promedio = suma/cont_iguales;
+		promedio.convertTo(promedio,CV_8UC(3),255);
+		stringstream s_tess;
+		s_tess << "promedio" << cont_srt << ".jpg";
+		imwrite(s_tess.str(),promedio);
+		string texto = img2str(s_tess.str());
+		suma = 0.0;
+		cont_iguales = 0;
+		
 		stringstream s_srt4;
-		s_srt4 << tiempo_str << endl << cont_srt << endl << endl;
+		s_srt4 << tiempo_str << endl << texto << endl << endl;
 		archivo_subs << s_srt4.str();
 	}
 	
