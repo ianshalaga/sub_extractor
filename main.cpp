@@ -79,15 +79,28 @@ int main(int argc, char** argv) {
 	ofstream archivo_subs (s_a.str());
 	
 //	Primera fotograma
-	video.set(CV_CAP_PROP_POS_FRAMES,0);
+//	video.set(CV_CAP_PROP_POS_FRAMES,0);
 	Mat frame_ant;
 	video >> frame_ant;
+	
+	double tiempo = video.get(CV_CAP_PROP_POS_MSEC);
+	string tiempo_str = ms2hms(tiempo);
 	
 	vector<Mat> resultados_ant;
 	bool subs_ant = detectar_sub(frame_ant,resultados_ant);
 	
+	int cont_srt = 0;
+	
+	if (subs_ant == true) {
+		cont_srt++;
+		stringstream s_srt0;
+		s_srt0 << cont_srt << endl << tiempo_str << " --> ";
+		archivo_subs << s_srt0.str();
+		//				suma = resultados_act[1].clone();
+		//				cont_iguales++;
+	}
+	
 //	Variables usadas
-	int cont_srt = 1;
 //	Mat suma;
 //	int cont_iguales = 0;
 	
@@ -96,51 +109,64 @@ int main(int argc, char** argv) {
 		
 		cout<<"fotograma"<<f<<endl;
 		
-		double tiempo = video.get(CV_CAP_PROP_POS_MSEC);
-		
-		video.set(CV_CAP_PROP_POS_FRAMES,f);
+//		video.set(CV_CAP_PROP_POS_FRAMES,f);
 		Mat frame;
 		video >> frame;
+		
+		if (frame.empty()) break;
+		
+		tiempo = video.get(CV_CAP_PROP_POS_MSEC);
+		tiempo_str = ms2hms(tiempo);
 		
 		vector<Mat> resultados_act;
 		bool subs_act = detectar_sub(frame,resultados_act);
 		
 		if (subs_act == true) { // si hay subtitulos
+//			stringstream s_fotograma;
+//			s_fotograma << "fotograma" << f << ".jpg";
+//			imwrite(s_fotograma.str(),frame);
 			if (subs_ant == false) { // si hay subtitulos pero antes no habia
+				cont_srt++;
 				stringstream s_srt1;
-				s_srt1 << cont_srt << endl << tiempo << " --> ";
+				s_srt1 << cont_srt << endl << tiempo_str << " --> ";
 				archivo_subs << s_srt1.str();
 //				suma = resultados_act[1].clone();
 //				cont_iguales++;
-				cont_srt++;
+				subs_ant = true;
 			} else { // si hay subtitulos y antes habia
 				Mat corr = correlacion(resultados_ant[7],resultados_act[7]);
 				if (corr.at<float>(0,0) < 0.9) { // si hay subtitulos y antes habia pero eran distintos
 //					Mat promedio = suma/cont_iguales;
 //					cont_iguales = 0;
-					stringstream s_srt2;
-					s_srt2 << tiempo << endl << "A" << endl << endl << cont_srt << endl << tiempo << " --> ";
-					archivo_subs << s_srt2.str();
 					cont_srt++;
+					stringstream s_srt2;
+					s_srt2 << tiempo_str << endl << cont_srt << endl << endl << cont_srt << endl << tiempo_str << " --> ";
+					archivo_subs << s_srt2.str();
+					subs_ant = true;
 				} else { // si hay subtitulos y antes habia y son los mismo
 //					suma += resultados_act[1];
 //					cont_iguales++;
+					subs_ant = true;
 				}
 			}
-			
-		} else { // si no hay subtitulos
-			if (subs_ant == true) { // si no hay subtitulos pero antes habia
-//				Mat promedio = suma/cont_iguales;
-//				cont_iguales = 0;
-				stringstream s_srt3;
-				s_srt3 << tiempo << endl << "A" << endl << endl;
-				archivo_subs << s_srt3.str();
-				cont_srt++;
-			}
-		} // end if de verificacion de subtitulos
+		} else if (subs_ant == true) { // si no hay subtitulos pero antes habia
+//			Mat promedio = suma/cont_iguales;
+//			cont_iguales = 0;
+			stringstream s_srt3;
+			s_srt3 << tiempo_str << endl << cont_srt << endl << endl;
+			archivo_subs << s_srt3.str();
+			subs_ant = false;
+		}
 		
 		resultados_ant = resultados_act;
+		
 	} // end for que recorre los fotogramas
+	
+	if (subs_ant == true) {
+		stringstream s_srt4;
+		s_srt4 << tiempo_str << endl << cont_srt << endl << endl;
+		archivo_subs << s_srt4.str();
+	}
 	
 //	test(video,100);
 	

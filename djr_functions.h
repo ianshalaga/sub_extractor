@@ -44,4 +44,7 @@ cv::Mat promedio_intensidad_v(const cv::Mat &imagen);
 // Coeficiente de correlacion entre dos imagenes
 cv::Mat correlacion(const cv::Mat &imagen1,const cv::Mat &imagen2);
 
+// Conversion del tiempo en ms al formato hh:mm:ss,sss del .srt
+std::string ms2hms(const double &tiempo_ms);
+
 #endif
