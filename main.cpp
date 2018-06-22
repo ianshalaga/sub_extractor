@@ -147,7 +147,7 @@ int main(int argc, char** argv) {
 	
 	ifstream archivo_srt("Shingeki no Kyojin S2 - 06 [1080p] [MX-EN-PT] [EF3BC295]_track3_spa.srt");
 	
-	int id;
+	string id;
 	int horas;
 	int minutos;
 	int segundos;
@@ -164,7 +164,7 @@ int main(int argc, char** argv) {
 			if (linea.empty())
 				break;
 		}
-		cout<<segundos<<'\n';
+		cout<<id<<'\n';
 	}
 	
 	return 0;

@@ -610,9 +610,6 @@ que vengas con nosotros.
 143
 00:12:10,960 --> 00:12:15,960
 Ascensores
-
-
-
 Se usan para transportar recursos a través de las murallas.
 Son simples de montar y usar, además de estar diseñados
 para poder usarse incluso en emergencias.
