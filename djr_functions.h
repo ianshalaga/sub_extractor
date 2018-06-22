@@ -50,4 +50,7 @@ std::string ms2hms(const double &tiempo_ms);
 // Convercion de imagen a texto (uso de tesseract)
 std::string img2str(std::string fotograma_inf);
 
+// Convierte el subtitulo srt original (solucion) a una imagen binaria para la medicion por solapamiento
+cv::Mat srt2img(std::string nombre_archivo);
+
 #endif
