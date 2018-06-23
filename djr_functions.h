@@ -51,6 +51,9 @@ std::string ms2hms(const double &tiempo_ms);
 std::string img2str(std::string fotograma_inf);
 
 // Convierte el subtitulo srt original (solucion) a una imagen binaria para la medicion por solapamiento
-cv::Mat srt2img(std::string nombre_archivo);
+cv::Mat srt2img(std::string nombre_archivo,cv::Mat solucion,double tiempo_fotograma);
+
+// Pasa el tiempo en formato hh:mm:ss,sss a milisegundos
+double hms2ms(int horas,int minutos,int segundos,int milisegundos);
 
 #endif
