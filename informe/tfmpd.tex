@@ -31,37 +31,32 @@
 
 \begin{document}
 
-\title{Búsqueda del camino óptimo entre dos ciudades mediante el algoritmo del sistema de hormigas: Trabajo Final de Inteligencia Computacional}
+\title{Extractor de subtítulos incrustados: Trabajo Final de Procesamiento Digital de Imágenes}
 
-\author{Marco A. Pereyra,
-        Gaspar E. Oberti y 
+\author{María A. Paez,
+        Leonardo N. Arato y 
         Darién J. Ramírez \\
-\textit{Trabajo práctico final de ``Inteligencia Computacional'', II-FICH-UNL.}}
+\textit{Trabajo práctico final de ``Procesamiento Digital de imágenes'', II-FICH-UNL.}}
 
-\markboth{INTELIGENCIA COMPUTACIONAL: TRABAJO FINAL}{}
+\markboth{PROCESAMIENTO DIGITAL DE IMAGENES: TRABAJO FINAL}{}
 
 \maketitle
 
 \begin{abstract}
-En este artículo se propone un algoritmo para determinar el camino óptimo entre dos ciudades de la provincia de Santa Fe a través del algoritmo de \textit{sistema de hormigas}. El camino óptimo no está basado sólo en la distancia, éste dependerá de más factores tales como peajes en las rutas, niveles de tráfico, etc. Esos factores serán representados a través de matrices simétricas de relación entre ciudades y su influencia en la elección del camino estará aplicada sobre los depósitos de feromonas. Los resultados obtenidos serán comparados con otros métodos de elección de caminos.
+En este trabajo se propone un método automático para la extracción de subtítulos incrustados en vídeos utilizando técnicas del procesamiento digital de imágenes. El proceso consiste en primer lugar en analizar los fotograma del archivo de entrada y determinar si cuentan o no con la presencia de subtítulos. Con esa información se establecen los tiempos para creer un archivo \textit{srt}. Finalmente se utiliza el reconocedor óptico de caracteres \textit{tesseract OCR} para obtener una aproximación al texto original incrustado en el fotograma.
 \end{abstract}
 
 \begin{keywords}
-sistema de hormigas, algoritmo genético, costo uniforme, camino óptimo, costo de camino.
+extractor, subtítulos, srt, tesseract, OCR.
 \end{keywords}
 
 \section{Introducción}
 
-\PARstart{E}{l} problema de encontrar el camino óptimo entre dos ciudades consiste en establecer un punto de partida y un punto de destino, luego hallar entre todos los posibles caminos el óptimo. Esto es, encontrar un camino que satisfaga ciertos requerimientos deseados y lo haga de la mejor manera posible. Este problema en particular está normalmente asociado a la distancia de ir de una ciudad a otra de modo que el camino óptimo es aquel que minimice la distancia. Pero no necesariamente es siempre así, se pueden solicitar otras características que ponderen a los posibles caminos como son los puestos de peaje en las rutas, los niveles de tráfico, la disponibilidad hotelera, entre otras.
-Existen muchos métodos para poder realizar esta tarea. Algunos más rápidos que otros, algunos más efectivos que otros, algunos con menos costo computacional que otros. En el presente trabajo utilizaremos el algoritmo de \textit{Sistema de Hormigas} (AS) para realizar esta tarea porque lo consideramos una buena opción para atacar este problema dentro de los métodos que conocemos de la inteligencia computacional.
-Los sistemas de hormigas tienen la capacidad para adaptarse, cooperar y moverse  inteligentemente de un sitio a otro. Las propiedades inherentes de los sistemas de hormigas incluyen la escalabilidad, la posibilidad de descubrir nuevas vías y soluciones, y la inteligencia, la baja complejidad de las interacciones locales y la comunicación a través del sistema. En general, las hormigas reales son capaces de hallar el camino más corto entre una fuente de alimento y su nido segregando 
-sustancias químicas llamadas feromonas. Las hormigas hacen uso de feromonas marcadoras de pistas para indicar el mejor camino a las siguientes hormigas. Este comportamiento de las hormigas reales ha inspirado los sistemas de hormigas, algoritmos en los 
-que un grupo de hormigas artificiales transitan los caminos y cooperan para encontrar la solución de un problema intercambiando información mediante las feromonas depositadas en las rutas. A continuación se comentarán algunos detalles de la implementación utilizada.
+\PARstart{E}{s} común encontrar vídeos con subtítulos incrustados los cuales se caracterizan por estar pegados sobre la imagen que representa al fotograma y no pueden ser desactivados, es decir, forman parte de la imagen y no se encuentran en formato texto. Se dan situaciones dónde se posee un archivo de vídeo con contenido remasterizado (mejorado en cuanto a calidad y resolución) pero el cual carece de subtítulos, sin embargo, se dispone de la versión original (no remasterizada e incluso con una baja calidad) la cual se encuentra subtitulada pero teniendo los subtítulos pegados impidiendo la posibilidad de utilizarlos en la versión remasterizada. El propósito de este trabajo es realizar la conversión \textit{imagen-texto} de manera automática para crear un archivo de subtítulos que sea reutilizable facilitando el tedioso trabajo de establecer los tiempos de los subtítulos de manera manual.
 
-\section{Implementación}
+\section{Detección de subtítulos}
 
-Para el presente trabajo se utilizó el algoritmo \ref{fig:AS} de sistema de hormigas al cual se le realizaron modificaciones para tener en cuenta no solo el costo de viaje por medio de la distancia sino también para considerar otras características en la búsqueda del camino óptimo.
-En primer lugar, a tiempo cero, se inicializa la matriz de feromonas con datos de distribución uniforme aleatoria. Las hormigas son ubicadas inicialmente en la ciudad de origen, aquella de donde se parte, para que después se encarguen de recorrer los caminos posibles a la ciudad destino y determinar de manera porcentual cuál es el camino que arroja el mejor resultado dependiendo de las características evaluadas. A medida que una hormiga se desplaza de ciudad en ciudad se irán eliminando de la lista de posibles caminos las aristas correspondientes a las rutas ya visitadas. De este modo, se ahorra el tener que eliminar los bucles de un camino encontrado a la ciudad destino. Una característica interesante de este algoritmo es la presencia de la variable $\eta_{ij}^{\beta}(t)$, inversa de la distancia entre nodos, que representa el deseo de la hormiga de moverse en una dirección en particular y permite que el algoritmo evalúe no solo las feromonas si no también las otras características.
+Se analizan los fotogramas del vídeo para determinar la presencia de subtítulos en cada uno de ellos. La región de interés para la búsqueda es el cuarto inferior de la imagen.
 
 \begin{figure}[!h]
 \begin{lstlisting}[mathescape=true]
@@ -93,16 +88,9 @@ devolver el mejor camino
 \label{fig:AS}
 \end{figure}
 
-
-La función $f(p^{k}(t))$ representa el costo del camino encontrado. Como no sólo se tiene en cuenta la distancia si no también otros factores, habrá un costo de camino para cada una de las características evaluadas. La evaporación de las feromonas representa el comportamiento de las mismas que se da en la naturaleza. La velocidad con la cual se produce la evaporación se encuentra regulada por un parámetro $\rho$. Cuanto más grande sea su valor, mayor será el nivel de disipación feromonal.
-
-A la hora de realizar el depósito de feromonas se utiliza el depósito global. Este fue elegido tras realizar sucesivas pruebas con los tres métodos de depósito de feromonas ya que se encontraron mejores resultados con el método electo. El valor de la constante Q se fijó en 1. En esta parte es donde se tienen en cuenta las distintas características para actualizar los valores de la feromonas:
-
 \begin{align*}
 \frac{Q}{f_{1}(p^{k}(t))}+\frac{Q}{f_{2}(p^{k}(t))}+\cdots+\frac{Q}{f_{n}(p^{k}(t))}
 \end{align*}
-
-Esto permite que las distintas características hagan su aporte en la actualización de los valores de la matriz de feromonas. Estas funciones de costo están directamente relacionadas con las matrices de relación entre ciudades.
 
 \section{Matrices de relación}
 
@@ -286,11 +274,7 @@ $20\times20$  & 13.11 & 18.7 & 243.42   \\ \bottomrule
 
 La figura \ref{fig:cvst} muestra una gráfica de como va aumentando el tiempo de ejecución al aumentar la cantidad de ciudades involucradas.
 
-\begin{figure}[!h]
-\includegraphics[width=\linewidth]{grafico.png}
-\caption{Cantidad de ciudades VS. Tiempo}
-\label{fig:cvst}
-\end{figure}
+
 
 A continuación se comparan los porcentajes de aciertos entre el algoritmo de hormigas y genético para 50 iteraciones en una matriz de $7\times7$ (desde Rincón a Esperanza) con $\rho=0.8$ y 7 hormigas. Para el algoritmo genético se establece una población de 8 individuos con 10 generaciones (Tabla \ref{table:tab2}).
 
@@ -346,15 +330,10 @@ Una posible mejora para el futuro es cambiar la forma de representación de los d
 
 \begin{thebibliography}{99}
 \bibitem{SRAT} %1
-Marco Dorigo, Vittorio Maniezzo and Alberto Colorni,
-\emph{The Ant System: Optimization by a colony of cooperating agents}. 
-IEEE Transactions on Systems, Man, and Cybernetics?Part B, Vol.26, No.1, 1996, pp.1-13.
-
-\bibitem{ID} %2
-J. Aguilar, Member IEEE y M. A. Labrador, Senior Member IEEE
-\emph{Un algoritmo de enrutamiento distribuido para redes de comunicación basado en sistemas de hormigas}. 
-IEEE LATIN AMERICA TRANSACTIONS, VOL. 5, NO. 8,
-DECEMBER 2007.
+Rafael C. González and Richard E.Woods,
+\emph{Digital Image Processing}. 
+Prentice-Hall, 3rd.
+ed. (2008) - 2nd. ed. (2001).
 \end{thebibliography}
 
 \end{document}
