@@ -15,7 +15,7 @@ tab_width=4
 tab_use_spaces=0
 explorer_path=
 inherits_from=
-current_source=srt2img.cpp
+current_source=detectar_sub.cpp
 path_char=\
 [source]
 path=main.cpp
@@ -23,7 +23,7 @@ cursor=10:33
 open=true
 [source]
 path=detectar_sub.cpp
-cursor=109:24
+cursor=19:25
 open=true
 [source]
 path=region_inferior.cpp
@@ -75,7 +75,7 @@ cursor=17:0
 open=true
 [source]
 path=srt2img.cpp
-cursor=0:0
+cursor=20:17
 open=true
 [header]
 path=djr_functions.h
