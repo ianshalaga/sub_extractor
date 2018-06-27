@@ -1,0 +1,20 @@
+1
+00:00:00,000 --> 00:00:01,120
+...con los algoritmos pertinentes puedo hackearle en el tiempo.
+
+101
+00:00:01,758 --> 00:00:03,239
+Igual que una máquina del tiempo.
+
+102
+00:00:03,960 --> 00:00:06,479
+Pues venga, es hora de hackear.
+
+103
+00:00:44,000 --> 00:00:47,439
+ESTÁ A PUNTO DE HACKEAR EL TIEMPO, ¿ESTÁ SEGURO? SÍ / NO
+
+104
+00:00:52,518 --> 00:00:53,518
+SÍ
+

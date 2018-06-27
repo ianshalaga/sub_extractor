@@ -39,6 +39,7 @@ int main(int argc, char** argv) {
 	
 	if (subs_ant == true) {
 		prediccion.at<uchar>(0,0) = 255;
+		
 		cont_srt++;
 		stringstream s_srt0;
 		s_srt0 << cont_srt << endl << tiempo_str << " --> ";
@@ -97,7 +98,7 @@ int main(int argc, char** argv) {
 				} else { // si hay subtitulos y antes habia y son los mismo
 					Mat inferior_f;
 					resultados_act[1].convertTo(inferior_f,CV_64FC(3),1.0/255);
-					pow(inferior_f,2,inferior_f);
+					pow(inferior_f,2,inferior_f); // para mejorar los resultados del tesseract
 					suma += inferior_f;
 					cont_iguales++;
 					subs_ant = true;
@@ -148,7 +149,7 @@ int main(int argc, char** argv) {
 	double fps = video.get(CV_CAP_PROP_FPS);
 	double tiempo_fotograma = 1000/fps;
 	
-	string nombre_srt = "Shingeki no Kyojin S2 - 06 [1080p] [MX-EN-PT] [EF3BC295]_track3_spa.srt";
+	string nombre_srt = "videos/snk_Sony AVC-MVC_SNK_720[4].srt";
 	solucion = srt2img(nombre_srt,solucion,tiempo_fotograma);
 	
 	imwrite("solucion.png",solucion);

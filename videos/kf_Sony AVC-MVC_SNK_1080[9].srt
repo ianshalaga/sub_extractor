@@ -1,0 +1,78 @@
+1
+00:00:00,000 --> 00:00:00,678
+ADN DE KUNG-FU
+
+83
+00:00:10,000 --> 00:00:13,799
+<i>Pero no pudieron averiguar cómo dominar el arte de Kung Fury.</i>
+
+84
+00:00:14,840 --> 00:00:17,799
+<i>Y, un día, desapareció de la faz de la Tierra.</i>
+
+85
+00:00:18,759 --> 00:00:20,559
+<i>Y nadie lo ha visto desde entonces.</i>
+
+86
+00:00:21,000 --> 00:00:22,199
+Hasta ahora.
+
+87
+00:00:22,719 --> 00:00:25,439
+Supongo que descubrió que si encontraba al elegido y lo mataba,
+
+88
+00:00:25,919 --> 00:00:27,919
+él se convertiría en Kung Fury.
+
+89
+00:00:28,000 --> 00:00:30,399
+Habrá viajado en el tiempo para llegar aquí,
+
+90
+00:00:30,480 --> 00:00:32,759
+y seguramente desapareciera por eso mismo.
+
+91
+00:00:33,200 --> 00:00:34,519
+¿Y qué va a hacer?
+
+92
+00:00:35,079 --> 00:00:36,080
+Mi trabajo.
+
+93
+00:00:36,639 --> 00:00:40,600
+Viajaré en el tiempo a la Alemania nazi y mataré a Hitler de una vez por todas.
+
+94
+00:00:40,960 --> 00:00:44,159
+-¿Y cómo lo va a hacer?
+-No estoy seguro.
+
+95
+00:00:45,039 --> 00:00:47,079
+Necesito una especie de máquina del tiempo.
+
+96
+00:00:50,839 --> 00:00:51,839
+Deme un segundo.
+
+97
+00:00:52,079 --> 00:00:54,600
+Si uso un modulador RX a lo mejor puedo direccionalizar...
+
+98
+00:00:54,679 --> 00:00:57,398
+...las células del servidor y hackear el enlace ascendente.
+
+99
+00:00:57,480 --> 00:00:59,200
+-¿Qué coño significa eso?
+-Que...
+
+100
+00:00:59,320 --> 00:01:01,000
+...con los algoritmos pertinentes puedo hackearle en el tiempo.
+

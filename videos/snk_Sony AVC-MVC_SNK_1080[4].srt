@@ -1,47 +1,48 @@
-﻿1
-00:00:06,440 --> 00:00:10,270
-¿Cómo está Ymir?
-
-2
-00:00:11,020 --> 00:00:16,250
+30
+00:00:11,019 --> 00:00:16,250
 Le devoraron las extremidades derechas
 y sus órganos están hechos puré.
 
-3
+31
 00:00:17,140 --> 00:00:19,500
 Una persona normal estaría muerta.
 
-4
-00:00:22,170 --> 00:00:24,870
+32
+00:00:22,169 --> 00:00:24,869
 Normal, ¿eh?
 
-5
-00:00:33,910 --> 00:00:35,690
+33
+00:00:33,909 --> 00:00:35,689
 Agárrate, Reiner.
 
-6
+34
 00:00:36,100 --> 00:00:37,210
 Gracias.
 
-7
-00:00:41,370 --> 00:00:44,510
+35
+00:00:41,369 --> 00:00:44,509
 Créame, por favor. ¡Es la verdad!
 
-8
-00:00:44,840 --> 00:00:49,390
+36
+00:00:44,839 --> 00:00:49,389
 Ymir se enfrentó a los titanes
 para salvarnos.
 
-9
+37
 00:00:50,200 --> 00:00:53,440
 Lo que demuestran sus acciones
 
-10
-00:00:53,440 --> 00:00:56,240
+38
+00:00:53,440 --> 00:00:56,239
 es lealtad hacia sus compañeros.
 
-11
-00:00:56,540 --> 00:01:01,000
+39
+00:00:56,539 --> 00:01:00,989
 Es cierto que sus decisiones
 hasta ahora son imperdonables.
+
+40
+00:01:00,989 --> 00:01:01,000
+Tenía información crucial
+para la humanidad y no la compartió.
 

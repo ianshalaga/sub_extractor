@@ -1,0 +1,17 @@
+111
+00:00:24,839 --> 00:00:26,240
+<i>Es un laserraptor.</i>
+
+112
+00:00:26,320 --> 00:00:28,760
+<i>Pensaba que se habían extinguido hace miles de años.</i>
+
+113
+00:00:53,200 --> 00:00:55,640
+-¿Quién eres?
+-Me llamo...
+
+114
+00:00:57,200 --> 00:00:58,479
+...Barbarianna.
+
