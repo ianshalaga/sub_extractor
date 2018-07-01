@@ -79,40 +79,40 @@ bool detectar_sub(const Mat &fotograma,vector<Mat> &resultados) {
 	Mat lineas_sub = lineas_hough(inferior_gris,lineas);
 	
 //	Comprobacion de existencia de subtitulo
-	Rect roi;
-	Mat inferior_roi = inferior.clone();
-	Mat inferior_mask(inferior.size(),CV_8UC(1),Scalar(0));
-	Mat inferior_tesseract(inferior.size(),CV_8UC(1),Scalar(0));
-	Mat inferior_lleno;
+//	Rect roi;
+//	Mat inferior_roi = inferior.clone();
+//	Mat inferior_mask(inferior.size(),CV_8UC(1),Scalar(0));
+//	Mat inferior_tesseract(inferior.size(),CV_8UC(1),Scalar(0));
+//	Mat inferior_lleno;
 	
 	if (lineas.size() == 0)
 		subtitulos = false;
 	else {
 		subtitulos = true;
 		
-		//	Ajuste de region especifica del subtitulo
-		Mat promedio_h = promedio_intensidad_h(apertura1);
-		Mat promedio_v = promedio_intensidad_v(apertura2);
-		threshold(promedio_v,promedio_v,0,255,THRESH_BINARY|THRESH_OTSU);
-		threshold(promedio_h,promedio_h,0,255,THRESH_BINARY|THRESH_OTSU);
-		vector<int> blancosV = blancos_v(promedio_h);
-		vector<int> blancosH = blancos_h(promedio_v);
-		
-		int limite_izquierdo = blancosH[0];
-		int limite_derecho = blancosH[blancosH.size()-1]-blancosH[0];
-		int limite_superior = blancosV[0];
-		int limite_inferior = blancosV[blancosV.size()-1]-blancosV[0];
-		
-		roi = Rect(limite_izquierdo,limite_superior,limite_derecho,limite_inferior);
-		rectangle(inferior_roi,roi,Scalar(0,255,0),3,8,0);
-		
-		//	Crea y aplica la mascara para usar con tesseract
-		inferior_mask(roi).setTo(Scalar(255));
-		Mat ee_rect_mask = getStructuringElement(MORPH_RECT,{columnas_inf/80,columnas_inf/80},Point(-1,-1));
-		dilate(inferior_mask,inferior_mask,ee_rect_mask,Point(-1,-1),1);
-		
-//		inferior.copyTo(inferior_tesseract,inferior_mask);
-		inferior_tesseract = inferior(roi);
+//		//	Ajuste de region especifica del subtitulo
+//		Mat promedio_h = promedio_intensidad_h(apertura1);
+//		Mat promedio_v = promedio_intensidad_v(apertura2);
+//		threshold(promedio_v,promedio_v,0,255,THRESH_BINARY|THRESH_OTSU);
+//		threshold(promedio_h,promedio_h,0,255,THRESH_BINARY|THRESH_OTSU);
+//		vector<int> blancosV = blancos_v(promedio_h);
+//		vector<int> blancosH = blancos_h(promedio_v);
+//		
+//		int limite_izquierdo = blancosH[0];
+//		int limite_derecho = blancosH[blancosH.size()-1]-blancosH[0];
+//		int limite_superior = blancosV[0];
+//		int limite_inferior = blancosV[blancosV.size()-1]-blancosV[0];
+//		
+//		roi = Rect(limite_izquierdo,limite_superior,limite_derecho,limite_inferior);
+//		rectangle(inferior_roi,roi,Scalar(0,255,0),3,8,0);
+//		
+//		//	Crea y aplica la mascara para usar con tesseract
+//		inferior_mask(roi).setTo(Scalar(255));
+//		Mat ee_rect_mask = getStructuringElement(MORPH_RECT,{columnas_inf/80,columnas_inf/80},Point(-1,-1));
+//		dilate(inferior_mask,inferior_mask,ee_rect_mask,Point(-1,-1),1);
+//		
+////		inferior.copyTo(inferior_tesseract,inferior_mask);
+//		inferior_tesseract = inferior(roi);
 	}
 	
 	/*Muestra los resultados parciales*/
@@ -130,7 +130,7 @@ bool detectar_sub(const Mat &fotograma,vector<Mat> &resultados) {
 //	[11] inferior_roi: subtitulo encuadrado.
 //	[12] inferior_mask: mascara para extraer el texto del fotograma
 //	[13] inferior_tesseract: solo texto del fotograma
-	resultados = {fotograma,inferior,inferiorV,inferiorV_gauss,filtradaV,filtradaV_u,cierre,cierre_med,apertura1,apertura2,lineas_sub,inferior_roi,inferior_mask,inferior_tesseract};
+	resultados = {fotograma,inferior,inferiorV,inferiorV_gauss,filtradaV,filtradaV_u,cierre,cierre_med,apertura1,apertura2,lineas_sub/*,inferior_roi,inferior_mask,inferior_tesseract*/};
 //	vector<Mat> to_ocr = {inferior_tesseract};
 	Mat mosaico_res = concatenar_imagenes(resultados,true,true);
 	

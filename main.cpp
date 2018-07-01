@@ -12,7 +12,7 @@ int main(int argc, char** argv) {
 	
 //	Carga del video
 	stringstream s_video,s_v1;
-	s_video << "snk_Sony AVC-MVC_SNK_720[4]";
+	s_video << "kf";
 	s_v1 << "videos/" << s_video.str() << ".mp4";
 	VideoCapture video(s_v1.str());
 	
@@ -149,8 +149,9 @@ int main(int argc, char** argv) {
 	double fps = video.get(CV_CAP_PROP_FPS);
 	double tiempo_fotograma = 1000/fps;
 	
-	string nombre_srt = "videos/snk_Sony AVC-MVC_SNK_720[4].srt";
-	solucion = srt2img(nombre_srt,solucion,tiempo_fotograma);
+	stringstream s_sub;
+	s_sub << "videos/" << s_video.str() << ".srt";
+	solucion = srt2img(s_sub.str(),solucion,tiempo_fotograma);
 	
 	imwrite("solucion.png",solucion);
 	
