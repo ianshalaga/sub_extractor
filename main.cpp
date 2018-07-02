@@ -12,7 +12,7 @@ int main(int argc, char** argv) {
 	
 //	Carga del video
 	stringstream s_video,s_v1;
-	s_video << "kf";
+	s_video << "y_Sony AVC-MVC_Y_480[4]";
 	s_v1 << "videos/" << s_video.str() << ".mp4";
 	VideoCapture video(s_v1.str());
 	

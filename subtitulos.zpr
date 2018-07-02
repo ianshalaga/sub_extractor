@@ -19,11 +19,11 @@ current_source=main.cpp
 path_char=\
 [source]
 path=main.cpp
-cursor=24:1
+cursor=14:35
 open=true
 [source]
 path=detectar_sub.cpp
-cursor=123:24
+cursor=150:1
 open=true
 [source]
 path=region_inferior.cpp
